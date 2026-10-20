@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: ${TEST_DB_URL:jdbc:postgresql://localhost:5432/poker_test}
+    username: ${DB_USER:poker}
+    password: ${DB_PASSWORD:poker}
+  flyway:
+    clean-disabled: false

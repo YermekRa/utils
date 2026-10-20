@@ -122,3 +122,26 @@ button.link:hover { color: var(--error); }
 .history { list-style: none; margin: 0; padding: 0; }
 .history li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--border); }
 .history li:last-child { border-bottom: none; }
+
+/* Комнаты покер-планирования */
+a.button {
+  display: inline-block; background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+  padding: 8px 14px; color: var(--text); text-decoration: none;
+}
+a.button:hover { border-color: var(--accent); }
+.card.narrow { max-width: 520px; }
+.role-picker { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.role-picker label {
+  display: flex; flex-direction: column; gap: 4px; padding: 12px; border: 1px solid var(--border); border-radius: 10px; cursor: pointer;
+}
+.role-picker label.selected { border-color: var(--accent); background: var(--accent-soft); }
+.role-picker input { position: absolute; opacity: 0; pointer-events: none; }
+.room-code b { font-family: var(--mono); letter-spacing: 0.05em; }
+.status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--muted); }
+.status-dot.online { background: var(--success); }
+.status-dot.offline { background: var(--error); }
+.player.away, .chip.away { opacity: 0.5; }
+.spectators { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding-top: 4px; border-top: 1px solid var(--border); }
+.chip { display: inline-flex; align-items: center; gap: 2px; padding: 3px 4px 3px 10px; border-radius: 999px; background: var(--bg); font-size: 0.9rem; }
+.chip:not(:has(button)) { padding-right: 10px; }
+.history li span:first-child { flex: 1; }

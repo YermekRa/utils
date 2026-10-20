@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: poker-backend
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/poker}
+    username: ${DB_USER:poker}
+    password: ${DB_PASSWORD:poker}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+  mvc:
+    async:
+      request-timeout: -1
+    problemdetails:
+      enabled: true
+
+server:
+  port: ${PORT:8080}
+
+app:
+  cors:
+    allowed-origins: ${CORS_ORIGINS:http://localhost:5173}
+  rooms:
+    # Комнаты без активности дольше этого срока удаляются
+    ttl: ${ROOM_TTL:30d}

@@ -1,26 +1,34 @@
-import { useEffect, useState } from 'react'
-import PlanningPoker from './tools/PlanningPoker'
+import { useEffect, useState, type ComponentType } from 'react'
+import PlanningPoker from './tools/poker/PlanningPoker'
 import Base64Converter from './tools/Base64Converter'
 import JsonFormatter from './tools/JsonFormatter'
+
+interface Tool {
+  id: string
+  title: string
+  icon: string
+  component: ComponentType<{ param?: string }>
+}
 
 const TOOLS = [
   { id: 'poker', title: 'Покер планирование', icon: '🃏', component: PlanningPoker },
   { id: 'base64', title: 'Конвертер Base64', icon: '🔁', component: Base64Converter },
   { id: 'json', title: 'JSON валидатор', icon: '🧾', component: JsonFormatter },
-] as const
+] satisfies Tool[]
 
 type ToolId = (typeof TOOLS)[number]['id']
 
-function readHash(): ToolId {
-  const id = window.location.hash.slice(1)
-  return TOOLS.some((t) => t.id === id) ? (id as ToolId) : TOOLS[0].id
+// #poker/k7m2xq9p → утилита poker, параметр k7m2xq9p (код комнаты)
+function readHash(): { id: ToolId; param?: string } {
+  const [id, param] = window.location.hash.slice(1).split('/')
+  return TOOLS.some((t) => t.id === id) ? { id: id as ToolId, param: param || undefined } : { id: TOOLS[0].id }
 }
 
 export default function App() {
-  const [active, setActive] = useState<ToolId>(readHash)
+  const [{ id: active, param }, setRoute] = useState(readHash)
 
   useEffect(() => {
-    const onHash = () => setActive(readHash())
+    const onHash = () => setRoute(readHash())
     window.addEventListener('hashchange', onHash)
     return () => window.removeEventListener('hashchange', onHash)
   }, [])
@@ -46,7 +54,7 @@ export default function App() {
       </header>
       <main className="content">
         <h2>{tool.title}</h2>
-        <Active />
+        <Active param={param} />
       </main>
     </div>
   )
